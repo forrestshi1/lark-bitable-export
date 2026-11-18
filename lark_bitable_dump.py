@@ -13,7 +13,7 @@
   python3 lark_bitable_dump.py \
       --app-token <base 的 app_token> \
       --table-id  <table_id> \
-      --out plan.json        # 可选, 不给就打印到 stdout
+      --out bitable.json        # 可选, 不给就打印到 stdout
 
   # 想要纯文本(方便喂给模型/阅读):
   python3 lark_bitable_dump.py ... --format text

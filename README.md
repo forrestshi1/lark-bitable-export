@@ -4,11 +4,11 @@
 
 | 文件 | 方式 | 需要 API 权限 | 适合 |
 |---|---|---|---|
-| `lark-plan-exporter.user.js` | 油猴脚本 / 粘进控制台 | 不需要 | 一个 base 里有多张表，文档式表和网格表混在一起（比如策划案） |
+| `lark-bitable-exporter.user.js` | 油猴脚本 / 粘进控制台 | 不需要 | 一个 base 里有多张表，文档式表和网格表混在一起 |
 | `bitable_web_collector.js` | 粘进控制台 | 不需要 | 单张网格表，按页面接口响应收集记录 |
 | `lark_bitable_dump.py` | 命令行，调开放平台 API | 需要 | 有自建应用权限，想脚本化批量拉取 |
 
-## 1. lark-plan-exporter.user.js（推荐）
+## 1. lark-bitable-exporter.user.js（推荐）
 
 安装到 Tampermonkey，或者把整个文件粘进 DevTools 控制台运行。打开 base 页面后右下角会出现面板：
 
@@ -42,7 +42,7 @@ bitableSample()        // 导出 0 条时，打印抓到的响应结构，方便
 ```bash
 export LARK_APP_ID=cli_xxx
 export LARK_APP_SECRET=xxx
-python3 lark_bitable_dump.py --app-token <base 的 app_token> --table-id <table_id> --format text --out plan.txt
+python3 lark_bitable_dump.py --app-token <base 的 app_token> --table-id <table_id> --format text --out bitable.txt
 ```
 
 国内飞书把脚本里的 `BASE` 改成 `https://open.feishu.cn`。只用 Python 标准库，无需安装依赖。

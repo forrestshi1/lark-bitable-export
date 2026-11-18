@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         飞书多维表格 策划案导出器
+// @name         飞书多维表格导出器
 // @namespace    https://github.com/forrestshi1/lark-bitable-export
 // @version      2.0
-// @description  一键把飞书/Lark 多维表格(策划案)导出成 Markdown。文档式表全自动滚动采集；canvas 网格表走「引导模式」自动切表，只需 ⌘A/⌘C。
+// @description  一键把飞书/Lark 多维表格导出成 Markdown。文档式表全自动滚动采集；canvas 网格表走「引导模式」自动切表，只需 ⌘A/⌘C。
 // @match        *://*.larksuite.com/base/*
 // @match        *://*.feishu.cn/base/*
 // @grant        none
@@ -22,7 +22,7 @@
  */
 (function () {
   'use strict';
-  if (window.__planExporter) { window.__planExporter.show(); return; }
+  if (window.__bitableExporter) { window.__bitableExporter.show(); return; }
 
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const store = {};        // tableName -> text
@@ -175,7 +175,7 @@
   // ---------- 导出 ----------
   function buildMd() {
     const names = tableNames();
-    let md = '# 飞书多维表格导出（策划案）\n\n> 抓取时间：' + new Date().toISOString() + '\n\n---\n\n';
+    let md = '# ' + ((document.title || '飞书多维表格').trim()) + '\n\n> 来源：' + location.href.split('?')[0] + '\n> 抓取时间：' + new Date().toISOString() + '\n\n---\n\n';
     names.forEach((name) => { md += '## ' + name + '\n\n' + (store[name] || '[未抓取]') + '\n\n---\n\n'; });
     return md;
   }
@@ -192,11 +192,11 @@
   // ---------- UI ----------
   function buildUI() {
     const box = document.createElement('div');
-    box.id = '__plan_exporter';
+    box.id = '__bitable_exporter';
     box.style.cssText = 'position:fixed;top:60px;right:16px;width:300px;max-height:84vh;overflow:auto;z-index:2147483647;background:#fff;border:1px solid #d0d0d0;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.18);font:13px/1.5 -apple-system,PingFang SC,sans-serif;color:#1f2329;';
     box.innerHTML = `
       <div style="padding:10px 12px;background:#3370ff;color:#fff;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;align-items:center;">
-        <b>📑 策划案导出</b><span id="__pe_close" style="cursor:pointer;">✕</span>
+        <b>📑 多维表格导出</b><span id="__pe_close" style="cursor:pointer;">✕</span>
       </div>
       <div style="padding:10px 12px;">
         <button id="__pe_auto" style="width:100%;padding:8px;background:#3370ff;color:#fff;border:0;border-radius:6px;cursor:pointer;font-weight:600;">① 自动抓取文档表</button>
@@ -260,7 +260,7 @@
     gp.addEventListener('paste', () => { setTimeout(() => { captureGuide(gp.value, log, refresh); gp.value = ''; }, 30); });
 
     refresh();
-    window.__planExporter = { show: () => { box.style.display = 'block'; } };
+    window.__bitableExporter = { show: () => { box.style.display = 'block'; } };
   }
 
   (async () => { for (let i = 0; i < 40 && !tableNames().length; i++) await sleep(500); buildUI(); })();

@@ -107,10 +107,10 @@
         for (var k in r.fields) lines.push(k + ': ' + flat(r.fields[k]));
         return lines.join('\n');
       }).join('\n\n');
-      download('plan.txt', out);
+      download('bitable.txt', out);
     } else {
       out = JSON.stringify(recs, null, 2);
-      download('plan.json', out);
+      download('bitable.json', out);
     }
     console.log('[bitable] 已导出 ' + recs.length + ' 条');
     return recs.length;

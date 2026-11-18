@@ -1,4 +1,4 @@
 .DS_Store
-*.md.bak
-plan*.json
-plan*.txt
+bitable*.json
+bitable*.txt
+*_导出.md
